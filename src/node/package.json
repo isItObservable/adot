@@ -1,0 +1,41 @@
+{
+  "name": "s3-imageuploader-webclient",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.205.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "multer": "^1.3.0",
+    "multer-s3": "^2.7.0"
+  },
+  "devDependencies": {
+    "dotenv": "^5.0.1",
+    "nodemon": "^1.14.9",
+    "@opentelemetry/auto-instrumentations-node": "0.33.1",
+    "@opentelemetry/auto-instrumentations-web": "0.30.0",
+    "@opentelemetry/context-zone": "1.7.0",
+    "@opentelemetry/core": "1.7.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "0.33.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.33.0",
+    "@opentelemetry/instrumentation": "0.33.0",
+    "@opentelemetry/resources": "1.7.0",
+    "@opentelemetry/sdk-node": "0.33.0",
+    "@opentelemetry/sdk-trace-base": "1.7.0",
+    "@opentelemetry/sdk-trace-node": "1.7.0",
+    "@opentelemetry/sdk-trace-web": "1.7.0",
+    "@opentelemetry/instrumentation-http" : "0.32",
+    "@opentelemetry/instrumentation-express": "0.32",
+    "@opentelemetry/instrumentation-graphql" : "0.33",
+    "@opentelemetry/exporter-metrics-otlp-grpc": "0.33.0",
+    "@opentelemetry/sdk-metrics": "0.33.0",
+    "@opentelemetry/api": "^1.3.0",
+    "@opentelemetry/resource-detector-container": "0.2.1",
+    "@opentelemetry/resource-detector-gcp": "0.27.4",
+    "@opentelemetry/instrumentation-aws-sdk" : "0.34.0"
+  },
+  "scripts": {
+    "start": "node --require './instrumentation.js' server.js"
+  }
+}

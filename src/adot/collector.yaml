@@ -1,0 +1,23 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  otlphttp:
+    endpoint: DT_URL_TO_REPLACE/api/v2/otlp
+    headers:
+      Authorization: "Api-Token API_TOKEN_TO_REPLACE"
+
+
+
+#enables output for traces to xray
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlphttp]
+    metrics:
+      receivers: [ otlp ]
+      exporters: [ otlphttp ]

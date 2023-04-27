@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Lambda application that calls the Lambda API.
+Resources:
+  bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://isitobservable-65c6be8e3d5d4e34/a88c99f72f99210ce15464d14053c594
+      Handler: example.Handler
+      Runtime: java8
+      Description: Java function
+      MemorySize: 512
+      Timeout: 30
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AWSLambda_ReadOnlyAccess
+      - AWSXrayWriteOnlyAccess
+      - AWSLambdaVPCAccessExecutionRole
+      - AmazonS3FullAccess
+      Tracing: Active
+      Layers:
+      - Ref: libs
+      Events:
+        s3Notification:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: bucket
+            Events: s3:ObjectCreated:*
+            Filter:
+              S3Key:
+                Rules:
+                - Name: prefix
+                  Value: inbound/
+  libs:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: s3-java-lib
+      Description: Dependencies for the Java S3 sample app.
+      ContentUri: s3://isitobservable-65c6be8e3d5d4e34/32770b69b6e3c2b344978b77b356a2c8
+      CompatibleRuntimes:
+      - java8
