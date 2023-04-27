@@ -176,7 +176,8 @@ kubectl apply -f manifest/deployment.yaml -n imageuploader
 ingress_host=$(kubectl get ingress -n imageuploader -ojson | jq -j '.items[].status.loadBalancer.ingress[].hostname')
 sed -i "s,HOST_TO_REPLACE,$IP," manifest/deployment_load.yaml
 kubectl apply -f manifest/deployment_load.yaml -n imageuploader
-
+sed  -i "s,DT_URL_TO_REPLACE,$DTURL," src/adot/collector.yaml
+sed  -i "s,API_TOKEN_TO_REPLACE,$DTTOKEN," src/adot/collector.yaml
 # Build lambda java code
 cd src/s3-java
 ./2-build-layer.sh
